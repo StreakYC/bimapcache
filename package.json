@@ -1,0 +1,24 @@
+{
+  "name": "bimapcache",
+  "version": "0.1.0",
+  "description": "Module for memoizing individual or pairs of functions to persistent storage",
+  "main": "js/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StreakYC/bimapcache.git"
+  },
+  "keywords": [
+    "bimap",
+    "cache",
+    "memoize"
+  ],
+  "author": "Chris Cowan <agentme49@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/StreakYC/bimapcache/issues"
+  },
+  "homepage": "https://github.com/StreakYC/bimapcache#readme"
+}
