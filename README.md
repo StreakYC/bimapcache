@@ -3,8 +3,8 @@
 [![Circle CI](https://circleci.com/gh/StreakYC/bimapcache.svg?style=shield)](https://circleci.com/gh/StreakYC/bimapcache)
 [![npm version](https://badge.fury.io/js/bimapcache.svg)](https://badge.fury.io/js/bimapcache)
 
-This module is for memoizing a single function or a pair of inverse functions
-to localStorage.
+This module is for memoizing to localStorage a single asynchronous function or a
+pair of inverse asynchronous functions.
 
 ## API
 
@@ -24,9 +24,10 @@ optional.
 are expected to be inverses of each other, though if you only want to cache one
 function then you could supply it as `getAfromB` and supply an error-throwing
 function as `getBfromA`. Each function only gets called when the same-named
-method on the BiMapCache instance is called. The inputs and outputs of these
-functions must work as the keys of Maps and be JSONifiable, so it's recommended
-that they be numbers or strings.
+method on the BiMapCache instance is called. Each function must return a Promise
+if it is to be used. The inputs and (resolved) outputs of these functions must
+work as the keys of Maps and be JSONifiable, so it's recommended that they be
+numbers or strings.
 
 `saveThrottle` is an optional property specifying a number of milliseconds to
 throttle saves to the storage by. This defaults to 3000 (or 3 seconds).
@@ -38,7 +39,12 @@ defaults to 1000.
 `maxAge` specifies the maximum age for cache entries. Cache entries that haven't
 been set or retrieved within this time will be removed.
 
-TODO document methods
+### biMapCache.getAfromB(input): Promise, biMapCache.getBfromA(input): Promise
+
+Calling either of these methods on the instance will cause the cache to be
+checked first. If no result is found in the cache, then the matching callback
+given in the constructor will be called. If the promise from the given callback
+resolves successfully, its result will be cached.
 
 ## Types
 
