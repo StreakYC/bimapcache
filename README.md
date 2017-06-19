@@ -32,12 +32,13 @@ numbers or strings.
 `saveThrottle` is an optional property specifying a number of milliseconds to
 throttle saves to the storage by. This defaults to 3000 (or 3 seconds).
 
-`maxLimit` specifies the maximum number of entries to keep in the persistent
-cache. Old entries will be removed first if this limit is exceeded. This
-defaults to 1000.
+`maxLimit` is an optional property specifying the maximum number of entries to
+keep in the persistent cache. Old entries will be removed first if this limit is
+exceeded. This defaults to 1000.
 
-`maxAge` specifies the maximum age for cache entries. Cache entries that haven't
-been set or retrieved within this time will be removed.
+`maxAge` is an optional property specifying the maximum age in milliseconds for
+cache entries. Cache entries that haven't been set or retrieved within this time
+will be removed. This defaults to one year.
 
 ### biMapCache.getAfromB(input): Promise, biMapCache.getBfromA(input): Promise
 
