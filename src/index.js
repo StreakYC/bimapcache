@@ -27,7 +27,7 @@ export default class BiMapCache<A: string|number=string,B: string|number=string>
   _bToApromise: Map<B, Promise<A>> = new Map();
   _saveCache: () => void;
 
-  constructor({key, getBfromA, getAfromB, storage, saveThrottle, maxLimit, maxAge}: Options<A,B>) {
+  constructor({key, getAfromB, getBfromA, storage, saveThrottle, maxLimit, maxAge}: Options<A,B>) {
     this._key = key;
     this._getBfromA = getBfromA;
     this._getAfromB = getAfromB;
