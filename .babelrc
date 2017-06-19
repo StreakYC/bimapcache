@@ -1,8 +1,9 @@
 {
-  "presets": ["es2015"],
+  "presets": ["es2015", "es2016", "es2017", "flow"],
   "plugins": [
-    "transform-runtime", "transform-flow-strip-types",
-    "transform-class-properties", "add-module-exports",
-    "transform-object-rest-spread"
+    "add-module-exports",
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    "transform-runtime"
   ]
 }
