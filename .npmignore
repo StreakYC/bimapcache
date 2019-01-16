@@ -6,3 +6,6 @@ npm-debug.log
 /src
 /flow-typed
 *.test.*
+/yarn.lock
+.babelrc
+/.circleci
