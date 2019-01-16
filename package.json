@@ -1,6 +1,6 @@
 {
   "name": "bimapcache",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Module for memoizing an individual function or a pair of inverse functions to persistent storage",
   "main": "js/index.js",
   "sideEffects": false,
