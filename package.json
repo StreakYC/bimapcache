@@ -5,7 +5,7 @@
   "main": "js/index.js",
   "scripts": {
     "prepare": "rimraf js && babel -s inline -d js/ src/ --ignore '**/*.test.js' && flow-copy-source -v src js --ignore '*.test.*'",
-    "test": "yarn run lint && yarn run flow_check && jest",
+    "test": "yarn run lint && yarn run flow_check && jest && tsc",
     "flow_check": "flow check",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
@@ -49,6 +49,7 @@
     "jest": "^23.6.0",
     "mock-webstorage": "^1.0.3",
     "pdelay": "^2.0.0",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "typescript": "^3.2.2"
   }
 }
