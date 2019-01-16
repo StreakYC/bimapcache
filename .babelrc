@@ -1,9 +1,14 @@
 {
-  "presets": ["es2015", "es2016", "es2017", "flow"],
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-flow"
+  ],
   "plugins": [
-    "add-module-exports",
-    "transform-class-properties",
-    "transform-object-rest-spread",
-    "transform-runtime"
+    ["add-module-exports", {
+      "addDefaultProperty": true
+    }],
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-runtime"
   ]
 }
