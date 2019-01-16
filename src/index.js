@@ -112,10 +112,16 @@ export default class BiMapCache<A: string|number=string,B: string|number=string>
     const promise = this._getBfromA(a);
     this._aToBpromise.set(a, promise);
     promise.then(b => {
-      this._aToBpromise.delete(a);
-      this._rememberPair(a, b);
+      const promiseWasStillCached = promise === this._aToBpromise.get(a);
+      if (promiseWasStillCached) {
+        this._aToBpromise.delete(a);
+        this._rememberPair(a, b);
+      }
     }, () => {
-      this._aToBpromise.delete(a);
+      const promiseWasStillCached = promise === this._aToBpromise.get(a);
+      if (promiseWasStillCached) {
+        this._aToBpromise.delete(a);
+      }
     });
     return promise;
   }
@@ -134,11 +140,39 @@ export default class BiMapCache<A: string|number=string,B: string|number=string>
     const promise = this._getAfromB(b);
     this._bToApromise.set(b, promise);
     promise.then(a => {
-      this._bToApromise.delete(b);
-      this._rememberPair(a, b);
+      const promiseWasStillCached = promise === this._bToApromise.get(b);
+      if (promiseWasStillCached) {
+        this._bToApromise.delete(b);
+        this._rememberPair(a, b);
+      }
     }, () => {
-      this._bToApromise.delete(b);
+      const promiseWasStillCached = promise === this._bToApromise.get(b);
+      if (promiseWasStillCached) {
+        this._bToApromise.delete(b);
+      }
     });
     return promise;
+  }
+
+  removeAfromCache(a: A) {
+    this._aToBpromise.delete(a);
+    if (this._aToB.has(a)) {
+      const b = this._aToB.get(a);
+      /*:: if (b === undefined) throw new Error(); */
+      this._aToB.delete(a);
+      this._bToA.delete(b);
+      this._saveCache();
+    }
+  }
+
+  removeBfromCache(b: B) {
+    this._bToApromise.delete(b);
+    if (this._bToA.has(b)) {
+      const a = this._bToA.get(b);
+      /*:: if (a === undefined) throw new Error(); */
+      this._aToB.delete(a);
+      this._bToA.delete(b);
+      this._saveCache();
+    }
   }
 }

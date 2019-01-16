@@ -15,4 +15,6 @@ export default class BiMapCache<A extends string|number=string,B extends string|
 
   getBfromA(a: A): Promise<B>;
   getAfromB(b: B): Promise<A>;
+  removeAfromCache(a: A): void;
+  removeBfromCache(b: B): void;
 }

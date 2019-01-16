@@ -221,3 +221,43 @@ test('simultaneous calls with same value result in one call', async () => {
   expect(await mim.getBfromA('a:0')).toBe('a');
   expect(await mim.getAfromB('b')).toBe('b:1');
 });
+
+test('remove_fromCache', async () => {
+  const storage: Object = new MockStorage();
+  let _i = 0;
+  const getBfromA = jest.fn(() => Promise.resolve(++_i));
+  const mim = new BiMapCache({
+    key: 'xyz',
+    getAfromB() {
+      throw new Error('should not happen');
+    },
+    getBfromA,
+    storage
+  });
+
+  const b1 = await mim.getBfromA('<123>');
+  expect(await mim.getBfromA('<123>')).toBe(b1);
+  expect(getBfromA).toHaveBeenCalledTimes(1);
+
+  mim.removeBfromCache(b1);
+  const b2 = await mim.getBfromA('<123>');
+  expect(await mim.getBfromA('<123>')).toBe(b2);
+  expect(b2).not.toBe(b1);
+  expect(getBfromA).toHaveBeenCalledTimes(2);
+
+  mim.removeAfromCache('<123>');
+  const b3 = await mim.getBfromA('<123>');
+  expect(await mim.getBfromA('<123>')).toBe(b3);
+  expect([b1, b2]).not.toContain(b3);
+  expect(getBfromA).toHaveBeenCalledTimes(3);
+
+  mim.removeAfromCache('<123>');
+  const p4 = mim.getBfromA('<123>');
+  mim.removeAfromCache('<123>');
+  const b5 = await mim.getBfromA('<123>');
+  const b4 = await p4;
+  expect(await mim.getBfromA('<123>')).toBe(b5);
+  expect([b1, b2, b3]).not.toContain(b4);
+  expect([b1, b2, b3, b4]).not.toContain(b5);
+  expect(getBfromA).toHaveBeenCalledTimes(5);
+});

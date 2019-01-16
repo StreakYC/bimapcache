@@ -47,6 +47,12 @@ checked first. If no result is found in the cache, then the matching callback
 given in the constructor will be called. If the promise from the given callback
 resolves successfully, its result will be cached.
 
+### biMapCache.removeAfromCache(input), biMapCache.removeBfromCache(input)
+
+These methods allow a value to be removed from the cache. If the corresponding
+`getAfromB(input)` / `getBfromA(input)` function was previously called and its
+returned Promise has not yet resolved, then its final result will not be cached.
+
 ## Types
 
 Both [TypeScript](https://www.typescriptlang.org/) and
